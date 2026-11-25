@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>من الفكرة إلى الموقع</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1f4b;--head:#0b1f4b;--ink:#17305f;--soft:#4a6797;--bg:#fff;--card:#eef5fd;--line:#c9dcf3;--light:#dcebfa;--mid:#1f5fd1;--onmid:#fff;--sky:#5bb6f0;--acc:var(--mid);--d:1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--navy:#050d24;--head:#f2f8ff;--ink:#d6e6fa;--soft:#9db9e3;--bg:#071230;--card:#0e2250;--line:#1e3b78;--light:#14306b;--mid:#4c8df5;--onmid:#04122f;--sky:#7cc6f5}}
+:root[data-theme="dark"]{--navy:#050d24;--head:#f2f8ff;--ink:#d6e6fa;--soft:#9db9e3;--bg:#071230;--card:#0e2250;--line:#1e3b78;--light:#14306b;--mid:#4c8df5;--onmid:#04122f;--sky:#7cc6f5}
+html[dir="rtl"]{--d:-1}
+html[lang="ar"] en,html[lang="en"] ar{display:none}
+*{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;display:flex;flex-direction:column;overflow:hidden;font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--ink);transition:background .5s}
+body.hero{--head:#fff;--ink:#e3effd;--soft:#b7d3f3;--bg:var(--navy);--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.22);--acc:var(--sky);--mid:var(--sky);--onmid:#0b1f4b}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.top,.nav{display:flex;align-items:center;gap:10px;padding:10px clamp(12px,3vw,32px);flex:none}
+.top{justify-content:space-between}
+#cnt{direction:ltr;unicode-bidi:isolate;font-weight:700;color:var(--head);font-variant-numeric:tabular-nums}
+.tools{display:flex;gap:8px}
+.chip{background:transparent;color:var(--head);border:1.5px solid var(--line);border-radius:999px;padding:6px 16px;font-weight:500;min-width:44px}
+.chip:hover{border-color:var(--acc)}
+.prog{height:4px;background:var(--line);flex:none}
+.prog i{display:block;height:100%;background:var(--acc);transform-origin:0 50%;transition:transform .5s}
+html[dir="rtl"] .prog i{transform-origin:100% 50%}
+#stage{flex:1;min-height:0;position:relative}
+.slide{position:absolute;inset:0;overflow-y:auto;display:flex;padding:clamp(16px,3.5vw,44px);opacity:0;visibility:hidden;transition:opacity .45s,transform .45s,visibility 0s .45s}
+.slide.before{transform:translateX(calc(var(--d)*-36px))}
+.slide.after{transform:translateX(calc(var(--d)*36px))}
+.slide.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.in{margin:auto;width:100%;max-width:1080px}
+h1{font-size:clamp(38px,7vw,82px);line-height:1.15;margin:0 0 .3em;color:var(--head);font-weight:700}
+h2{font-size:clamp(26px,4vw,46px);line-height:1.25;margin:0 0 .35em;color:var(--head);font-weight:700}
+h3{margin:0 0 6px;font-size:20px;color:var(--head)}
+p{margin:0}
+.lead{font-size:clamp(16px,1.8vw,21px);color:var(--soft);line-height:1.8;margin-bottom:1.5em;max-width:34em}
+.g2{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,64px);align-items:center}
+.btn{background:var(--mid);color:var(--onmid);border:0;border-radius:999px;padding:13px 32px;font-weight:700;font-size:18px}
+.btn:hover{filter:brightness(1.1)}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;color:var(--ink);line-height:1.7}
+.q{border-inline-start:5px solid var(--acc);font-size:19px;font-weight:500;color:var(--head)}
+.cards.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.ic{width:52px;height:52px;margin-bottom:14px}
+.flow{display:flex;align-items:stretch;gap:10px}
+.flow s{text-decoration:none;color:var(--acc);font-size:28px;align-self:center;flex:none}
+.flow s::before{content:"→"}
+html[dir="rtl"] .flow s::before{content:"←"}
+.node{flex:1;text-align:center;background:var(--card);border:2px solid var(--mid);border-radius:12px;padding:18px 10px;font-weight:700;font-size:19px;color:var(--head)}
+.node small{display:block;font-weight:400;font-size:14px;color:var(--soft);margin-top:6px;line-height:1.5}
+.ls{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.ls li{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-weight:500;color:var(--head)}
+.ls li::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--mid);flex:none}
+.mock{border:2px solid var(--line);border-radius:14px;background:var(--bg);overflow:hidden}
+.mb{display:flex;gap:6px;align-items:center;padding:10px 12px;background:var(--light)}
+.mb i{width:9px;height:9px;border-radius:50%;background:var(--mid)}
+.mb u{flex:1;height:8px;border-radius:4px;background:var(--line);margin-inline-start:10px}
+.mh{padding:22px;background:var(--mid)}
+.mh b{display:block;height:12px;border-radius:6px;background:#fff;width:70%;margin-bottom:8px}
+.mh b+b{width:45%;opacity:.7}
+.mh span{display:inline-block;margin-top:10px;width:70px;height:22px;border-radius:11px;background:var(--navy)}
+.mc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
+.mc i{height:56px;border-radius:8px;background:var(--light);border:1px solid var(--line)}
+.tech{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.tag{font-weight:700;background:var(--mid);color:var(--onmid);border-radius:8px;padding:6px 10px;min-width:104px;text-align:center;direction:ltr;flex:none}
+.ck{display:flex;gap:12px;align-items:center;padding:11px 2px;border-bottom:1px solid var(--line);cursor:pointer;font-weight:500;color:var(--head)}
+.ck:last-child{border:0}
+.ck input{width:20px;height:20px;accent-color:var(--mid);flex:none}
+.ck input:checked+span{text-decoration:line-through;opacity:.55}
+blockquote{margin:36px 0 28px;font-size:clamp(22px,3.6vw,40px);font-weight:700;line-height:1.5;color:var(--head)}
+.nav{justify-content:space-between}
+.dots{display:flex;gap:8px}
+.dots button{width:11px;height:11px;border-radius:50%;border:0;padding:0;background:var(--line)}
+.dots button.on{background:var(--acc);transform:scale(1.35)}
+.nav .chip:disabled{opacity:.35;cursor:default}
+.pop{transform-box:fill-box;transform-origin:center}
+.slide.on .pop{animation:pop .8s .45s both cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:scale(.88)}}
+html[dir="rtl"] .flip{transform:scaleX(-1)}
+@media (max-width:800px){.g2{grid-template-columns:1fr}.flip{max-width:360px;margin:0 auto}}
+@media (max-width:700px){.flow{flex-direction:column}.flow s::before,html[dir="rtl"] .flow s::before{content:"↓"}.tech{flex-wrap:wrap;gap:8px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+ <span id="cnt">1 / 7</span>
+ <div class="tools">
+  <button class="chip" id="lang"><ar>EN</ar><en>عربي</en></button>
+  <button class="chip" id="theme">◐</button>
+ </div>
+</header>
+<div class="prog"><i id="bar"></i></div>
+
+<main id="stage">
+
+<section class="slide" data-hero><div class="in g2">
+ <div>
+  <h1><ar>من الفكرة إلى الموقع</ar><en>From Idea to Website</en></h1>
+  <p class="lead"><ar>رحلة بناء موقع إلكتروني من التخطيط إلى الإطلاق.</ar><en>A journey from planning to launching a website.</en></p>
+  <button class="btn" id="start"><ar>ابدأ العرض</ar><en>Start presentation</en></button>
+ </div>
+ <svg class="flip" viewBox="0 0 460 320" aria-hidden="true">
+  <circle cx="90" cy="130" r="46" fill="#5bb6f0"/><rect x="74" y="172" width="32" height="22" rx="4" fill="#fff" opacity=".85"/>
+  <g stroke="#5bb6f0" stroke-width="4" stroke-linecap="round"><path d="M90 50v-18M36 76l-12-12M144 76l12-12M24 130H8M172 130h16"/></g>
+  <path d="M170 150C210 70 250 70 280 130" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 10" stroke-linecap="round"/>
+  <path d="M283 112l6 24-22-8z" fill="#fff"/>
+  <g class="pop"><rect x="270" y="86" width="176" height="150" rx="12" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-width="2"/>
+  <path d="M270 114V98a12 12 0 0 1 12-12h152a12 12 0 0 1 12 12v16z" fill="#fff" fill-opacity=".25"/>
+  <circle cx="288" cy="100" r="4" fill="#5bb6f0"/><circle cx="302" cy="100" r="4" fill="#5bb6f0"/><circle cx="316" cy="100" r="4" fill="#5bb6f0"/>
+  <rect x="288" y="130" width="110" height="11" rx="5" fill="#fff"/><rect x="288" y="150" width="76" height="9" rx="4" fill="#fff" opacity=".6"/>
+  <rect x="288" y="172" width="58" height="20" rx="10" fill="#5bb6f0"/>
+  <rect x="288" y="204" width="48" height="20" rx="5" fill="#fff" opacity=".2"/><rect x="342" y="204" width="48" height="20" rx="5" fill="#fff" opacity=".2"/><rect x="396" y="204" width="36" height="20" rx="5" fill="#fff" opacity=".2"/></g>
+  <circle cx="200" cy="270" r="12" fill="none" stroke="#5bb6f0" stroke-width="3"/><rect x="330" y="30" width="22" height="22" rx="4" fill="none" stroke="#fff" stroke-width="2" transform="rotate(20 341 41)"/><circle cx="60" cy="270" r="6" fill="#fff" opacity=".6"/>
+ </svg>
+</div></section>
+
+<section class="slide"><div class="in">
+ <h2><ar>فهم احتياج العميل</ar><en>Understanding the client’s needs</en></h2>
+ <p class="lead"><ar>قبل التصميم والبرمجة، ابدأ بالأسئلة التي تحدد اتجاه المشروع كله.</ar><en>Before design and code, start with the questions that set the direction of the whole project.</en></p>
+ <div class="cards two">
+  <div class="card q"><ar>من هو الجمهور المستهدف؟</ar><en>Who is the target audience?</en></div>
+  <div class="card q"><ar>ما المشكلة التي نريد حلها؟</ar><en>What problem are we solving?</en></div>
+  <div class="card q"><ar>ما الخدمة أو المعلومة التي يبحث عنها الزائر؟</ar><en>What service or information is the visitor looking for?</en></div>
+  <div class="card q"><ar>ما الهدف الذي نريد تحقيقه من الموقع؟</ar><en>What goal should the website achieve?</en></div>
+ </div>
+</div></section>
+
+<section class="slide"><div class="in">
+ <h2><ar>اختيار نوع الموقع</ar><en>Choosing the site type</en></h2>
+ <p class="lead"><ar>نوع الموقع يحدد الصفحات والأدوات والتصميم.</ar><en>The site type shapes the pages, tools and design.</en></p>
+ <div class="cards">
+  <div class="card"><svg class="ic" viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="3" fill="var(--mid)"/><g fill="var(--bg)"><rect x="16" y="12" width="6" height="6"/><rect x="26" y="12" width="6" height="6"/><rect x="16" y="24" width="6" height="6"/><rect x="26" y="24" width="6" height="6"/><rect x="20" y="34" width="8" height="8"/></g></svg>
+   <h3><ar>الموقع التعريفي</ar><en>Corporate website</en></h3><p><ar>للتعريف بالشركات والمؤسسات والخدمات.</ar><en>Introduces companies, organizations and services.</en></p></div>
+  <div class="card"><svg class="ic" viewBox="0 0 48 48"><path d="M5 9h7l5 22h20l4-16H13" fill="none" stroke="var(--mid)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="40" r="3.5" fill="var(--sky)"/><circle cx="34" cy="40" r="3.5" fill="var(--sky)"/></svg>
+   <h3><ar>المتجر الإلكتروني</ar><en>Online store</en></h3><p><ar>لعرض المنتجات واستقبال الطلبات.</ar><en>Showcases products and takes orders.</en></p></div>
+  <div class="card"><svg class="ic" viewBox="0 0 48 48"><rect x="6" y="6" width="17" height="17" rx="3" fill="var(--mid)"/><rect x="26" y="6" width="17" height="17" rx="3" fill="var(--sky)"/><rect x="6" y="26" width="17" height="17" rx="3" fill="var(--sky)"/><rect x="26" y="26" width="17" height="17" rx="3" fill="var(--mid)"/></svg>
+   <h3><ar>معرض الأعمال</ar><en>Portfolio</en></h3><p><ar>لعرض المشاريع والمهارات والخبرات.</ar><en>Presents projects, skills and experience.</en></p></div>
+ </div>
+</div></section>
+
+<section class="slide"><div class="in">
+ <h2><ar>التخطيط وتنظيم المحتوى</ar><en>Planning and organizing content</en></h2>
+ <p class="lead"><ar>حدّد الصفحات الرئيسية ورتّب المعلومات بحسب أهميتها للزائر.</ar><en>Define the main pages and order information by what matters to the visitor.</en></p>
+ <div class="flow">
+  <div class="node"><ar>الرئيسية</ar><en>Home</en><small><ar>الرسالة الأساسية ونقاط الدخول</ar><en>Core message and entry points</en></small></div><s></s>
+  <div class="node"><ar>من نحن</ar><en>About</en><small><ar>نبذة تبني الثقة</ar><en>A story that builds trust</en></small></div><s></s>
+  <div class="node"><ar>الخدمات</ar><en>Services</en><small><ar>ما الذي نقدّمه بوضوح</ar><en>What we offer, clearly</en></small></div><s></s>
+  <div class="node"><ar>تواصل معنا</ar><en>Contact</en><small><ar>كيف يصل إليك الزائر</ar><en>How visitors reach you</en></small></div>
+ </div>
+</div></section>
+
+<section class="slide"><div class="in g2">
+ <div>
+  <h2><ar>تصميم واجهة المستخدم</ar><en>User interface design</en></h2>
+  <p class="lead"><ar>التصميم الجيد يجعل الزائر يفهم الموقع دون شرح.</ar><en>Good design lets visitors understand the site without explanation.</en></p>
+  <ul class="ls">
+   <li><ar>التناسق بين الألوان والخطوط</ar><en>Consistent colors and fonts</en></li>
+   <li><ar>وضوح ترتيب العناصر</ar><en>Clear element hierarchy</en></li>
+   <li><ar>سهولة التنقل</ar><en>Easy navigation</en></li>
+   <li><ar>توافق التصميم مع الجوال</ar><en>Mobile-friendly layout</en></li>
+  </ul>
+ </div>
+ <div class="mock" aria-hidden="true"><div class="mb"><i></i><i></i><i></i><u></u></div><div class="mh"><b></b><b></b><span></span></div><div class="mc"><i></i><i></i><i></i></div></div>
+</div></section>
+
+<section class="slide"><div class="in">
+ <h2><ar>التطوير والاختبار</ar><en>Development and testing</en></h2>
+ <p class="lead"><ar>ثلاث تقنيات تبني الموقع، وقائمة فحص تضمن جاهزيته.</ar><en>Three technologies build the site; a checklist makes sure it is ready.</en></p>
+ <div class="g2">
+  <div>
+   <div class="tech"><span class="tag">HTML</span><span><ar>بناء هيكل الصفحة</ar><en>Builds the page structure</en></span></div>
+   <div class="tech"><span class="tag">CSS</span><span><ar>تنسيق وتصميم الصفحة</ar><en>Styles and designs the page</en></span></div>
+   <div class="tech"><span class="tag">JavaScript</span><span><ar>إضافة التفاعل والحركة</ar><en>Adds interaction and motion</en></span></div>
+  </div>
+  <div class="card">
+   <h3><ar>اختبارات ما قبل الإطلاق</ar><en>Pre-launch checks</en></h3>
+   <label class="ck"><input type="checkbox"><span><ar>الروابط</ar><en>Links</en></span></label>
+   <label class="ck"><input type="checkbox"><span><ar>الأزرار</ar><en>Buttons</en></span></label>
+   <label class="ck"><input type="checkbox"><span><ar>النماذج</ar><en>Forms</en></span></label>
+   <label class="ck"><input type="checkbox"><span><ar>سرعة التحميل</ar><en>Load speed</en></span></label>
+   <label class="ck"><input type="checkbox"><span><ar>التوافق مع الأجهزة</ar><en>Device compatibility</en></span></label>
+  </div>
+ </div>
+</div></section>
+
+<section class="slide" data-hero><div class="in">
+ <h2><ar>النشر والخاتمة</ar><en>Launch and wrap-up</en></h2>
+ <p class="lead"><ar>ننتقل من ملفات المشروع إلى موقع متاح لأي زائر على الإنترنت.</ar><en>We move from project files to a site any visitor can open online.</en></p>
+ <div class="flow">
+  <div class="node"><ar>مراجعة نهائية</ar><en>Final review</en></div><s></s>
+  <div class="node"><ar>رفع الملفات</ar><en>Upload files</en></div><s></s>
+  <div class="node"><ar>نشر الموقع</ar><en>Publish the site</en></div>
+ </div>
+ <blockquote><ar>«الفكرة الجيدة تستحق تنفيذًا واضحًا»</ar><en>“A good idea deserves clear execution.”</en></blockquote>
+ <button class="btn" id="restart"><ar>إعادة العرض</ar><en>Restart presentation</en></button>
+</div></section>
+
+</main>
+
+<footer class="nav">
+ <button class="chip" id="prev"><ar>السابق</ar><en>Previous</en></button>
+ <div class="dots" id="dots"></div>
+ <button class="chip" id="next"><ar>التالي</ar><en>Next</en></button>
+</footer>
+
+<script>
+const $=s=>document.querySelector(s),R=document.documentElement;
+const sl=[...document.querySelectorAll('.slide')],N=sl.length;
+let i=0;
+function pref(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+const dots=$('#dots');
+sl.forEach((_,k)=>{const b=document.createElement('button');b.onclick=()=>show(k);dots.appendChild(b)});
+function show(n){
+ i=Math.max(0,Math.min(N-1,n));
+ sl.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('before',k<i);s.classList.toggle('after',k>i);s.inert=k!==i;if(k===i)s.scrollTop=0});
+ document.body.classList.toggle('hero',sl[i].hasAttribute('data-hero'));
+ $('#cnt').textContent=(i+1)+' / '+N;
+ $('#bar').style.transform='scaleX('+(i+1)/N+')';
+ $('#prev').disabled=i===0;$('#next').disabled=i===N-1;
+ [...dots.children].forEach((b,k)=>{b.classList.toggle('on',k===i);b.setAttribute('aria-label',(k+1)+' / '+N)});
+}
+function setLang(l){
+ R.lang=l;R.dir=l==='ar'?'rtl':'ltr';
+ document.title=l==='ar'?'من الفكرة إلى الموقع':'From Idea to Website';
+ $('#theme').setAttribute('aria-label',l==='ar'?'تبديل الوضع الفاتح والداكن':'Toggle light and dark mode');
+ $('#lang').setAttribute('aria-label',l==='ar'?'English':'العربية');
+ pref('lang',l);
+}
+setLang(pref('lang')==='en'?'en':'ar');
+const t0=pref('theme');if(t0==='light'||t0==='dark')R.dataset.theme=t0;
+$('#lang').onclick=()=>setLang(R.lang==='ar'?'en':'ar');
+$('#theme').onclick=()=>{
+ const dark=R.dataset.theme?R.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+ R.dataset.theme=dark?'light':'dark';pref('theme',R.dataset.theme);
+};
+$('#prev').onclick=()=>show(i-1);$('#next').onclick=()=>show(i+1);
+$('#start').onclick=()=>show(1);$('#restart').onclick=()=>show(0);
+document.addEventListener('keydown',e=>{
+ const rtl=R.dir==='rtl',k=e.key;
+ if(k==='ArrowRight')show(rtl?i-1:i+1);
+ else if(k==='ArrowLeft')show(rtl?i+1:i-1);
+ else if(k==='PageDown'||(k===' '&&e.target===document.body)){e.preventDefault();show(i+1)}
+ else if(k==='PageUp')show(i-1);
+ else if(k==='Home')show(0);
+ else if(k==='End')show(N-1);
+});
+let tx=null;
+$('#stage').addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+$('#stage').addEventListener('touchend',e=>{
+ if(tx===null)return;
+ const dx=e.changedTouches[0].clientX-tx;tx=null;
+ if(Math.abs(dx)<60)return;
+ const fwd=R.dir==='rtl'?dx>0:dx<0;show(fwd?i+1:i-1);
+});
+show(0);
+</script>
+</body>
+</html>
